@@ -35,10 +35,23 @@ public class Server {
       assert url != null;
       String path = url.getPath();
       System.out.println("Detailed file path: " + path + "\n");
+
+      //Client clientThread = new Client();
+      //Thread thread = new Thread(clientThread);
+      //thread.start();
+
       while (true) {
         // client that's accepted
         // can accept multiple connections since in while(true) loop
         try (Socket client = serverSocket.accept()) {
+
+          Socket clientSocket = serverSocket.accept();
+          System.out.println("Client connected from " + clientSocket.getInetAddress());
+
+          // Create a new thread to handle the client connection
+          Thread clientThread = new Thread(new ClientHandler(clientSocket));
+          clientThread.start();
+
 
           // read the requests and listen to the message
           InputStreamReader inputStreamReader = new InputStreamReader(client.getInputStream());
@@ -63,32 +76,6 @@ public class Server {
 
           System.out.println("--- REQUEST ---");
           System.out.println(hostPort + "," + " Method: " + methodResourceVersion[0] + " Version: " + methodResourceVersion[2]);
-
-
-          if (resource.equals("/joke.png") || resource.equals("/joke.png/")) {
-            FileInputStream image = new FileInputStream("public/joke.png");
-            System.out.println(image);
-            OutputStream clientOutput = client.getOutputStream();
-            clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-            clientOutput.write(("\r\n").getBytes());
-            clientOutput.write(image.readAllBytes());
-            clientOutput.flush();
-
-          } else if (resource.equals("/hello.html") || resource.equals("/hello.html/")) {
-            OutputStream clientOutput = client.getOutputStream();
-            clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-            clientOutput.write(("\r\n").getBytes());
-            clientOutput.write(("Hello world!").getBytes());
-            clientOutput.flush();
-          } else {
-            OutputStream clientOutput = client.getOutputStream();
-            clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-            clientOutput.write(("\r\n").getBytes());
-            clientOutput.write(("THIS IS THE HOMEPAGE OF YOUR WEBSERVER!!!\n\n").getBytes());
-            clientOutput.write(("Type /joke.png to see the joke.png file.\n").getBytes());
-            clientOutput.write(("Type hello.html to see the hello.html message.\n").getBytes());
-            clientOutput.flush();
-          }
 
         } catch (IOException e) {
           throw new RuntimeException(e);
