@@ -46,7 +46,8 @@ public class Server {
         try (Socket client = serverSocket.accept()) {
 
           Socket clientSocket = serverSocket.accept();
-          System.out.println("Client connected from " + clientSocket.getInetAddress());
+          System.out.println("Assigned a new client to a separate thread!");
+          //System.out.println("Client connected from " + clientSocket.getInetAddress());
 
           // Create a new thread to handle the client connection
           Thread clientThread = new Thread(new ClientHandler(clientSocket));
@@ -70,12 +71,13 @@ public class Server {
           String hostPort = bufferedReader.readLine();
           String[] methodResourceVersion = firstLine.split(" ");
           String resource = methodResourceVersion[1];
+          //TODO: Request printing to be done
+          //TODO: Homepage should serve the index.html file
+          System.out.println(hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1] + ", Version: " + methodResourceVersion[2]);
           if (checkIfFileExists(resource)) {
             System.out.println("Requested file exists!");
           }
-
-          System.out.println("--- REQUEST ---");
-          System.out.println(hostPort + "," + " Method: " + methodResourceVersion[0] + " Version: " + methodResourceVersion[2]);
+          //System.out.println("--- REQUEST ---");
 
         } catch (IOException e) {
           throw new RuntimeException(e);

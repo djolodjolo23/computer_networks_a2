@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable{
@@ -40,60 +41,90 @@ public class ClientHandler implements Runnable{
       String path = parts[1];
       String protocol = parts[2];
 
-      System.out.println("Received " + method + " request for " + path);
-
-      if (path.equals("/joke.png") || path.equals("/joke.png/")) {
-        FileInputStream image = new FileInputStream("public/joke.png");
+      //System.out.println("Received " + method + " request for " + path);
+      /**
+      if (path.equals("/clown.png") || path.equals("/clown.png/")) {
+        FileInputStream image = new FileInputStream("public/clown.png");
         System.out.println(image);
         OutputStream clientOutput = clientSocket.getOutputStream();
         clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
         clientOutput.write(("\r\n").getBytes());
         clientOutput.write(image.readAllBytes());
         clientOutput.flush();
-
-      } else if (path.equals("/hello.html") || path.equals("/hello.html/")) {
+      } else if (path.equals("/clowns.html") || path.equals("/clowns.html/")) {
         OutputStream clientOutput = clientSocket.getOutputStream();
+        File file = new File("public/clowns.html");
+        String content = new String(Files.readAllBytes(file.toPath()));
         clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
         clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(("Hello world!").getBytes());
+        clientOutput.write(content.getBytes());
         clientOutput.flush();
-      } else {
+      } else if (path.equals("/fun.html") || path.equals("/fun.html/")) {
         OutputStream clientOutput = clientSocket.getOutputStream();
+        File file = new File("public/fun.html");
+        String content = new String(Files.readAllBytes(file.toPath()));
         clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
         clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(("THIS IS THE HOMEPAGE OF YOUR WEBSERVER!!!\n\n").getBytes());
-        clientOutput.write(("Type /joke.png to see the joke.png file.\n").getBytes());
-        clientOutput.write(("Type hello.html to see the hello.html message.\n").getBytes());
-        clientOutput.flush();
+        clientOutput.write(content.getBytes());
+        // Read the image file and write it to the output stream
+      }else {
+        OutputStream clientOutput = clientSocket.getOutputStream();
+        File file = new File("public/index.html");
+        String content = new String(Files.readAllBytes(file.toPath()));
+        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
+        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
+        clientOutput.write(("\r\n").getBytes());
+        clientOutput.write(content.getBytes());
       }
-
+       */
       // Serve the requested file or return a 404 error
-      try {
-        File file = new File("." + path);
-        String contentType = "text/plain";
-        if (path.endsWith(".html")) {
-          contentType = "text/html";
-        } else if (path.endsWith(".png")) {
-          contentType = "image/png";
+      if (path.equals("/") || path.equals("/index.html")) {
+        try {
+          String contentType = "text/html";
+          byte[] data = Files.readAllBytes(Path.of("public/index.html"));
+          output.write(("HTTP/1.1 200 OK\r\n" +
+              "Content-Length: " + data.length + "\r\n" +
+              "Content-Type: " + contentType + "\r\n" +
+              "\r\n").getBytes());
+          output.write(data);
+        } catch (IOException e) {
+          output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
+              "\r\n").getBytes());
         }
-        byte[] data = Files.readAllBytes(file.toPath());
-
-        output.write(("HTTP/1.1 200 OK\r\n" +
-            "Content-Length: " + data.length + "\r\n" +
-            "Content-Type: " + contentType + "\r\n" +
-            "\r\n").getBytes());
-        output.write(data);
-      } catch (IOException e) {
-        output.write(("HTTP/1.1 404 Not Found\r\n" +
-            "Content-Length: 0\r\n" +
-            "\r\n").getBytes());
-      }
-
+      } else {
+          try {
+            //File file = new File("." + path);
+            String contentType = "text/plain";
+            if (path.endsWith(".html")) {
+              contentType = "text/html";
+            } else if (path.endsWith(".png")) {
+              contentType = "image/png";
+            }
+            Path filePath = Path.of("public" + path);
+            File file = filePath.toFile();
+            if (file.isDirectory()) {
+              contentType = "text/html";
+              filePath = filePath.resolve("index.html");
+              file = filePath.toFile();
+            }
+            byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
+            output.write(("HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + data.length + "\r\n" +
+                "Content-Type: " + contentType + "\r\n" +
+                "\r\n").getBytes());
+            output.write(data);
+          } catch (IOException e) {
+            output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
+                "\r\n").getBytes());
+          }
+        }
       // Close the client socket
       output.close();
       input.close();
       clientSocket.close();
-      System.out.println("Client disconnected");
+      System.out.println("\n");
     } catch (IOException e) {
       e.printStackTrace();
     }
