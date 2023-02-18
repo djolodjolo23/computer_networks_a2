@@ -80,6 +80,7 @@ public class ClientHandler implements Runnable{
       }
        */
       // Serve the requested file or return a 404 error
+      // checking for the homepage
       if (path.equals("/") || path.equals("/index.html")) {
         try {
           String contentType = "text/html";
@@ -103,11 +104,11 @@ public class ClientHandler implements Runnable{
               contentType = "image/png";
             }
             Path filePath = Path.of("public" + path);
+            // checking for subfolders
             File file = filePath.toFile();
             if (file.isDirectory()) {
               contentType = "text/html";
               filePath = filePath.resolve("index.html");
-              file = filePath.toFile();
             }
             byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
             output.write(("HTTP/1.1 200 OK\r\n" +
