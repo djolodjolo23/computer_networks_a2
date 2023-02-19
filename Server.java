@@ -74,7 +74,7 @@ public class Server {
           String hostPort = bufferedReader.readLine();
           String[] methodResourceVersion = firstLine.split(" ");
           String resource = methodResourceVersion[1];
-          if (!resource.endsWith(".html") || resource.endsWith(".png")) {
+          if (!resource.endsWith(".html") && !resource.endsWith(".png")) {
             folders.add(resource);
           }
           //TODO: Request printing to be done
@@ -107,12 +107,13 @@ public class Server {
 
 
   static boolean checkIfFileExists(String fileName) {
-    File folder = new File("public");
+    String folderPath = fileName.substring(0, fileName.lastIndexOf('/'));
+    File folder = new File("public" + folderPath);
     File[] files = folder.listFiles();
     boolean doesTheFileExist = false;
     if (files != null) {
       for (File file : files) {
-        String fileNameWithoutFolder = "/" + file.getName();
+        String fileNameWithoutFolder = folderPath + "/" + file.getName();
         if (fileNameWithoutFolder.equals(fileName)) {
           doesTheFileExist = true;
           break;

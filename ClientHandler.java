@@ -28,11 +28,6 @@ public class ClientHandler implements Runnable{
 
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-      //String firstLine = bufferedReader.readLine();
-      //String hostPort = bufferedReader.readLine();
-      //String[] methodResourceVersion = firstLine.split(" ");
-      //String resource = methodResourceVersion[1];
-
       // Read the HTTP request from the client
       Scanner scanner = new Scanner(input);
       String requestLine = scanner.nextLine();
@@ -40,47 +35,6 @@ public class ClientHandler implements Runnable{
       String method = parts[0];
       String path = parts[1];
       String protocol = parts[2];
-
-      //System.out.println("Received " + method + " request for " + path);
-      /**
-      if (path.equals("/clown.png") || path.equals("/clown.png/")) {
-        FileInputStream image = new FileInputStream("public/clown.png");
-        System.out.println(image);
-        OutputStream clientOutput = clientSocket.getOutputStream();
-        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-        clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(image.readAllBytes());
-        clientOutput.flush();
-      } else if (path.equals("/clowns.html") || path.equals("/clowns.html/")) {
-        OutputStream clientOutput = clientSocket.getOutputStream();
-        File file = new File("public/clowns.html");
-        String content = new String(Files.readAllBytes(file.toPath()));
-        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
-        clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(content.getBytes());
-        clientOutput.flush();
-      } else if (path.equals("/fun.html") || path.equals("/fun.html/")) {
-        OutputStream clientOutput = clientSocket.getOutputStream();
-        File file = new File("public/fun.html");
-        String content = new String(Files.readAllBytes(file.toPath()));
-        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
-        clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(content.getBytes());
-        // Read the image file and write it to the output stream
-      }else {
-        OutputStream clientOutput = clientSocket.getOutputStream();
-        File file = new File("public/index.html");
-        String content = new String(Files.readAllBytes(file.toPath()));
-        clientOutput.write(("HTTP/1.1 200 OK\r\n").getBytes());
-        clientOutput.write(("Content-Type: text/html\r\n").getBytes());
-        clientOutput.write(("\r\n").getBytes());
-        clientOutput.write(content.getBytes());
-      }
-       */
-      // Serve the requested file or return a 404 error
-      // checking for the homepage
       if (path.equals("/") || path.equals("/index.html")) {
         try {
           String contentType = "text/html";

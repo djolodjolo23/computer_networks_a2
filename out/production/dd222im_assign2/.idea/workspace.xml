@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Added a Client Handler class for handeling multiple connections.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Indexing through folders seems to be working fine.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,6 +41,7 @@
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -50,7 +49,7 @@
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="dd222im_assign2" />
-      <option name="PROGRAM_PARAMETERS" value="80 public" />
+      <option name="PROGRAM_PARAMETERS" value="8888 public" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -97,7 +96,7 @@
       <option name="presentableId" value="Default" />
       <updated>1676495864994</updated>
       <workItem from="1676495866332" duration="4135000" />
-      <workItem from="1676734999477" duration="1484000" />
+      <workItem from="1676734999477" duration="6778000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -113,7 +112,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676499923264</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Indexing through folders seems to be working fine.">
+      <created>1676740805232</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676740805232</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Indexing through folders seems to be working fine.">
+      <created>1676740879488</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676740879488</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,7 +146,19 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit." />
     <MESSAGE value="Added a Client Handler class for handeling multiple connections." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a Client Handler class for handeling multiple connections." />
+    <MESSAGE value="Indexing through folders seems to be working fine." />
+    <option name="LAST_COMMIT_MESSAGE" value="Indexing through folders seems to be working fine." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/ClientHandler.java</url>
+          <line>83</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
