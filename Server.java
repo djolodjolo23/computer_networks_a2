@@ -8,6 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Server {
@@ -28,7 +29,6 @@ public class Server {
       System.err.println("the folder name should be 'public' ");
       System.exit(1);
     }
-
     try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]))) {
       // ready to receive messages
       System.out.println("Server has succesfully started. Listening on the port " + args[0]);
@@ -47,14 +47,16 @@ public class Server {
         try (Socket client = serverSocket.accept()) {
 
           Socket clientSocket = serverSocket.accept();
-          System.out.println("Assigned a new client to a separate thread!");
           ArrayList<String> folders = new ArrayList<>();
 
           //System.out.println("Client connected from " + clientSocket.getInetAddress());
 
           // Create a new thread to handle the client connection
-          Thread clientThread = new Thread(new ClientHandler(clientSocket));
+          ClientHandler clientHandler = new ClientHandler(clientSocket);
+          Thread clientThread = new Thread(clientHandler);
           clientThread.start();
+          //clientThread.join();
+          System.out.println("Assigned a new client to a separate thread!");
 
 
           // read the requests and listen to the message
@@ -73,18 +75,30 @@ public class Server {
           String firstLine = bufferedReader.readLine();
           String hostPort = bufferedReader.readLine();
           String[] methodResourceVersion = firstLine.split(" ");
-          String resource = methodResourceVersion[1];
-          if (!resource.endsWith(".html") && !resource.endsWith(".png")) {
-            folders.add(resource);
+          if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")) {
+            if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
+                || methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 2) == '/') {
+              folders.add(methodResourceVersion[1]);
+            }
           }
           //TODO: Request printing to be done
           System.out.println(hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1] + ", Version: " + methodResourceVersion[2]);
-          if (checkIfFileExists(resource) && !folders.contains(resource)) {
+          if (checkIfFileExists(methodResourceVersion[1]) || folders.contains(methodResourceVersion[1])) {
             System.out.println("Requested file exists!");
+            if (folders.contains(methodResourceVersion[1])) {
+              System.out.println("Requested item is a folder.");
+            } else {
+              if (methodResourceVersion[1].endsWith(".html")) {
+                System.out.println("Requested item is an html file.");
+              } else if (methodResourceVersion[1].endsWith(".png")) {
+                System.out.println("Requested item is an png file.");
+              }
+            }
+          } else {
+            System.err.println("Requested file does not exist!");
           }
-          if (folders.contains(resource)) {
-            System.out.println("Requested file is a folder!");
-          }
+          String header = clientHandler.getHeader();
+          System.out.println("Client: " + client.getInetAddress() + client.getPort() + ", Version: " + methodResourceVersion[2] + ", Response: " + header);
           System.out.println("\n");
 
         } catch (IOException e) {

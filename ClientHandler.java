@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
@@ -13,9 +14,14 @@ import java.util.Scanner;
 public class ClientHandler implements Runnable{
 
   private Socket clientSocket;
+  private String header = "";
 
   public ClientHandler(Socket socket) {
     this.clientSocket = socket;
+  }
+
+  public String getHeader() {
+    return header;
   }
 
   public void run() {
@@ -30,7 +36,7 @@ public class ClientHandler implements Runnable{
 
       // Read the HTTP request from the client
       Scanner scanner = new Scanner(input);
-      String line = scanner.nextLine();
+      String line = bufferedReader.readLine();
       String[] lineArray = line.split(" ");
       String method = lineArray[0];
       String path = lineArray[1];
@@ -39,11 +45,17 @@ public class ClientHandler implements Runnable{
         try {
           String contentType = "text/html";
           byte[] data = Files.readAllBytes(Path.of("public/index.html"));
+          String headerAsString = "HTTP/1.1 200 OK\r\n" +
+              "Content-Length: " + data.length + "\r\n" +
+              "Content-Type: " + contentType + "\r\n" +
+              "\r\n";
+          header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
           output.write(("HTTP/1.1 200 OK\r\n" +
               "Content-Length: " + data.length + "\r\n" +
               "Content-Type: " + contentType + "\r\n" +
               "\r\n").getBytes());
           output.write(data);
+          System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
         } catch (IOException e) {
           output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
               "\r\n").getBytes());
@@ -65,11 +77,17 @@ public class ClientHandler implements Runnable{
               filePath = filePath.resolve("index.html");
             }
             byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
+            String headerAsString = "HTTP/1.1 200 OK\r\n" +
+                "Content-Length: " + data.length + "\r\n" +
+                "Content-Type: " + contentType + "\r\n" +
+                "\r\n";
+            header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
             output.write(("HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + data.length + "\r\n" +
                 "Content-Type: " + contentType + "\r\n" +
                 "\r\n").getBytes());
             output.write(data);
+            System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
           } catch (IOException e) {
             output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
                 "\r\n").getBytes());
