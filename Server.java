@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Server {
@@ -47,6 +48,8 @@ public class Server {
 
           Socket clientSocket = serverSocket.accept();
           System.out.println("Assigned a new client to a separate thread!");
+          ArrayList<String> folders = new ArrayList<>();
+
           //System.out.println("Client connected from " + clientSocket.getInetAddress());
 
           // Create a new thread to handle the client connection
@@ -71,13 +74,18 @@ public class Server {
           String hostPort = bufferedReader.readLine();
           String[] methodResourceVersion = firstLine.split(" ");
           String resource = methodResourceVersion[1];
+          if (!resource.endsWith(".html") || resource.endsWith(".png")) {
+            folders.add(resource);
+          }
           //TODO: Request printing to be done
-          //TODO: Homepage should serve the index.html file
           System.out.println(hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1] + ", Version: " + methodResourceVersion[2]);
-          if (checkIfFileExists(resource)) {
+          if (checkIfFileExists(resource) && !folders.contains(resource)) {
             System.out.println("Requested file exists!");
           }
-          //System.out.println("--- REQUEST ---");
+          if (folders.contains(resource)) {
+            System.out.println("Requested file is a folder!");
+          }
+          System.out.println("\n");
 
         } catch (IOException e) {
           throw new RuntimeException(e);

@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Added a Client Handler class for handeling multiple connections.">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Indexing through folders seems to be working fine.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +40,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/dimit/OneDrive/Documents/lnu courses/1DV512/a3",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -99,7 +100,8 @@
       <option name="presentableId" value="Default" />
       <updated>1676495864994</updated>
       <workItem from="1676495866332" duration="4135000" />
-      <workItem from="1676734999477" duration="5701000" />
+      <workItem from="1676734999477" duration="6778000" />
+      <workItem from="1676812634349" duration="1461000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -115,7 +117,21 @@
       <option name="project" value="LOCAL" />
       <updated>1676499923264</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Indexing through folders seems to be working fine.">
+      <created>1676740805232</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1676740805232</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Indexing through folders seems to be working fine.">
+      <created>1676740879488</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1676740879488</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,14 +151,15 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit." />
     <MESSAGE value="Added a Client Handler class for handeling multiple connections." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a Client Handler class for handeling multiple connections." />
+    <MESSAGE value="Indexing through folders seems to be working fine." />
+    <option name="LAST_COMMIT_MESSAGE" value="Indexing through folders seems to be working fine." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/ClientHandler.java</url>
-          <line>82</line>
+          <line>83</line>
           <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
