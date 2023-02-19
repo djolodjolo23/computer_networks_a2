@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Added a folder check statement.">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Requested files and folders are printed out correctly.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +99,7 @@
       <updated>1676495864994</updated>
       <workItem from="1676495866332" duration="4135000" />
       <workItem from="1676734999477" duration="6778000" />
-      <workItem from="1676812634349" duration="3814000" />
+      <workItem from="1676812634349" duration="4472000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -140,7 +136,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676817260825</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Requested files and folders are printed out correctly.">
+      <created>1676819809776</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676819809776</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,16 +165,12 @@
     <MESSAGE value="Added a Client Handler class for handeling multiple connections." />
     <MESSAGE value="Indexing through folders seems to be working fine." />
     <MESSAGE value="Added a folder check statement." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a folder check statement." />
+    <MESSAGE value="Requested files and folders are printed out correctly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Requested files and folders are printed out correctly." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ClientHandler.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Server.java</url>
           <line>109</line>

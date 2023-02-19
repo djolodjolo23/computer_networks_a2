@@ -30,11 +30,11 @@ public class ClientHandler implements Runnable{
 
       // Read the HTTP request from the client
       Scanner scanner = new Scanner(input);
-      String requestLine = scanner.nextLine();
-      String[] parts = requestLine.split(" ");
-      String method = parts[0];
-      String path = parts[1];
-      String protocol = parts[2];
+      String line = scanner.nextLine();
+      String[] lineArray = line.split(" ");
+      String method = lineArray[0];
+      String path = lineArray[1];
+      String protocol = lineArray[2];
       if (path.equals("/") || path.equals("/index.html")) {
         try {
           String contentType = "text/html";
