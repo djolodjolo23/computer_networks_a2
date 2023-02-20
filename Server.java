@@ -37,26 +37,22 @@ public class Server {
       String path = url.getPath();
       System.out.println("Detailed file path: " + path + "\n");
 
-      //Client clientThread = new Client();
-      //Thread thread = new Thread(clientThread);
-      //thread.start();
 
       while (true) {
         // client that's accepted
         // can accept multiple connections since in while(true) loop
         try (Socket client = serverSocket.accept()) {
 
-          Socket clientSocket = serverSocket.accept();
+          //Socket clientSocket = serverSocket.accept();
           ArrayList<String> folders = new ArrayList<>();
 
           //System.out.println("Client connected from " + clientSocket.getInetAddress());
 
           // Create a new thread to handle the client connection
-          ClientHandler clientHandler = new ClientHandler(clientSocket);
+          ClientHandler clientHandler = new ClientHandler(client);
           Thread clientThread = new Thread(clientHandler);
           clientThread.start();
-          //clientThread.join();
-          System.out.println("Assigned a new client to a separate thread!");
+          clientThread.join();
 
 
           // read the requests and listen to the message
@@ -82,6 +78,7 @@ public class Server {
             }
           }
           //TODO: Request printing to be done
+          System.out.println("Assigned a new client to a separate thread!");
           System.out.println(hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1] + ", Version: " + methodResourceVersion[2]);
           if (checkIfFileExists(methodResourceVersion[1]) || folders.contains(methodResourceVersion[1])) {
             System.out.println("Requested file exists!");
@@ -100,8 +97,9 @@ public class Server {
           String header = clientHandler.getHeader();
           System.out.println("Client: " + client.getInetAddress() + client.getPort() + ", Version: " + methodResourceVersion[2] + ", Response: " + header);
           System.out.println("\n");
-
-        } catch (IOException e) {
+          bufferedReader.close();
+          inputStreamReader.close();
+        } catch (IOException | InterruptedException e) {
           throw new RuntimeException(e);
         }
       }
@@ -109,6 +107,7 @@ public class Server {
       throw new RuntimeException(e);
     }
   }
+
 
   static boolean integerCheck(String var0) {
     try {
@@ -118,6 +117,7 @@ public class Server {
       return false;
     }
   }
+
 
 
   static boolean checkIfFileExists(String fileName) {

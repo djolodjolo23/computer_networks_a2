@@ -24,6 +24,10 @@ public class ClientHandler implements Runnable{
     return header;
   }
 
+  public void setHeader(String header) {
+    this.header = header;
+  }
+
   public void run() {
     try {
       // Get the input and output streams of the client socket
@@ -35,9 +39,16 @@ public class ClientHandler implements Runnable{
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
       // Read the HTTP request from the client
-      Scanner scanner = new Scanner(input);
-      String line = bufferedReader.readLine();
-      String[] lineArray = line.split(" ");
+      String line;
+      StringBuilder reqBuilder = new StringBuilder();
+      while ((line = bufferedReader.readLine()) != null) {
+        reqBuilder.append(line).append("\r\n");
+        if (line.isEmpty()) {
+          break;
+        }
+      }
+      String request = reqBuilder.toString();
+      String[] lineArray = request.split(" ");
       String method = lineArray[0];
       String path = lineArray[1];
       String protocol = lineArray[2];
@@ -49,13 +60,14 @@ public class ClientHandler implements Runnable{
               "Content-Length: " + data.length + "\r\n" +
               "Content-Type: " + contentType + "\r\n" +
               "\r\n";
-          header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
+          String header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
+          setHeader(header);
           output.write(("HTTP/1.1 200 OK\r\n" +
               "Content-Length: " + data.length + "\r\n" +
               "Content-Type: " + contentType + "\r\n" +
               "\r\n").getBytes());
           output.write(data);
-          System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
+          //System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
         } catch (IOException e) {
           output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
               "\r\n").getBytes());
@@ -82,21 +94,24 @@ public class ClientHandler implements Runnable{
                 "Content-Type: " + contentType + "\r\n" +
                 "\r\n";
             header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
+            setHeader(header);
             output.write(("HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + data.length + "\r\n" +
                 "Content-Type: " + contentType + "\r\n" +
                 "\r\n").getBytes());
             output.write(data);
-            System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
+            //System.out.println("PRINTED FROM THE CLIENTHANDLER: \n" + header);
           } catch (IOException e) {
             output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
                 "\r\n").getBytes());
           }
         }
       // Close the client socket
-      output.close();
-      input.close();
-      clientSocket.close();
+      //output.close();
+      //input.close();
+      //clientSocket.close();
+      //bufferedReader.close();
+      //inputStreamReader.close();
       //System.out.println("\n");
     } catch (IOException e) {
       e.printStackTrace();
