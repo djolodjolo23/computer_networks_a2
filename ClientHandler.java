@@ -9,6 +9,9 @@ import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class ClientHandler implements Runnable{
@@ -52,6 +55,9 @@ public class ClientHandler implements Runnable{
       String method = lineArray[0];
       String path = lineArray[1];
       String protocol = lineArray[2];
+      LocalDateTime currentDateTime = LocalDateTime.now();
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+      String formattedDateTime = currentDateTime.format(formatter);
       if (path.equals("/") || path.equals("/index.html")) {
         try {
           String contentType = "text/html";
@@ -59,6 +65,7 @@ public class ClientHandler implements Runnable{
           String headerAsString = "HTTP/1.1 200 OK\r\n" +
               "Content-Length: " + data.length + "\r\n" +
               "Content-Type: " + contentType + "\r\n" +
+              "Date: " + formattedDateTime + "\r\n" +
               "\r\n";
           String header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
           setHeader(header);
@@ -92,6 +99,7 @@ public class ClientHandler implements Runnable{
             String headerAsString = "HTTP/1.1 200 OK\r\n" +
                 "Content-Length: " + data.length + "\r\n" +
                 "Content-Type: " + contentType + "\r\n" +
+                "Date: " + formattedDateTime + "\r\n" +
                 "\r\n";
             header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
             setHeader(header);

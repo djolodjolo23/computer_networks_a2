@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
@@ -68,37 +69,60 @@ public class Server {
 
 
           //requestBuilder.append("Host: ").append(localAddress).append(" (localhost = ").append(isItSame).append(")");
-          String firstLine = bufferedReader.readLine();
-          String hostPort = bufferedReader.readLine();
-          String[] methodResourceVersion = firstLine.split(" ");
-          if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")) {
-            if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
-                || methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 2) == '/') {
-              folders.add(methodResourceVersion[1]);
-            }
-          }
-          //TODO: Request printing to be done
-          System.out.println("Assigned a new client to a separate thread!");
-          System.out.println(hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1] + ", Version: " + methodResourceVersion[2]);
-          if (checkIfFileExists(methodResourceVersion[1]) || folders.contains(methodResourceVersion[1])) {
-            System.out.println("Requested file exists!");
-            if (folders.contains(methodResourceVersion[1])) {
-              System.out.println("Requested item is a folder.");
-            } else {
-              if (methodResourceVersion[1].endsWith(".html")) {
-                System.out.println("Requested item is an html file.");
-              } else if (methodResourceVersion[1].endsWith(".png")) {
-                System.out.println("Requested item is an png file.");
+          //while (bufferedReader.readLine() != null) {
+            //bufferedReader.reset();
+            String firstLine = bufferedReader.readLine();
+            String hostPort = bufferedReader.readLine();
+            if (!(firstLine == null) && !(hostPort == null)) {
+              String[] methodResourceVersion = firstLine.split(" ");
+              if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")) {
+                if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
+                    || methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 2) == '/') {
+                  folders.add(methodResourceVersion[1]);
+                }
+              }
+              //TODO: Request printing to be done
+              System.out.println("Assigned a new client to a separate thread!");
+              System.out.println(
+                  hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1]
+                      + ", Version: " + methodResourceVersion[2]);
+              if (checkIfFileExists(methodResourceVersion[1]) || folders.contains(methodResourceVersion[1])) {
+                System.out.println("Requested file exists!");
+                if (folders.contains(methodResourceVersion[1])) {
+                  System.out.println("Requested item is a folder.");
+                } else {
+                  if (methodResourceVersion[1].endsWith(".html")) {
+                    System.out.println("Requested item is an html file.");
+                  } else if (methodResourceVersion[1].endsWith(".png")) {
+                    System.out.println("Requested item is an png file.");
+                  }
+                }
+              } else {
+                System.out.println("Requested file does not exist!");
+              }
+              InetAddress clientInetAddress = client.getInetAddress();
+              int port = client.getPort();
+              String header = clientHandler.getHeader();
+              if (!Objects.equals(header, "")) {
+                String[] headerArray = header.split("\r\n");
+                String response = headerArray[0].substring(8);
+                String dateTime = headerArray[3];
+                String contentLength = headerArray[1];
+                String contentType = headerArray[2];
+                InetAddress addr = InetAddress.getLocalHost();
+                String hostname = addr.getHostName();
+                client.close();
+                System.out.println(
+                    "Client: " + clientInetAddress + port + ", Version: " + methodResourceVersion[2]
+                        + ", Response:" + response + ", " + dateTime + " \nServername:" + hostname + ", "
+                        + contentLength + ", " + checkIfSocketIsClosed(client)
+                        + ", " + contentType);
+                System.out.println("\n");
+                //client.close();
+                //bufferedReader.close();
+                //inputStreamReader.close();
               }
             }
-          } else {
-            System.err.println("Requested file does not exist!");
-          }
-          String header = clientHandler.getHeader();
-          System.out.println("Client: " + client.getInetAddress() + client.getPort() + ", Version: " + methodResourceVersion[2] + ", Response: " + header);
-          System.out.println("\n");
-          bufferedReader.close();
-          inputStreamReader.close();
         } catch (IOException | InterruptedException e) {
           throw new RuntimeException(e);
         }
@@ -115,6 +139,14 @@ public class Server {
       return true;
     } catch (NumberFormatException var2) {
       return false;
+    }
+  }
+
+  static String checkIfSocketIsClosed(Socket socket) {
+    if (socket.isClosed()) {
+      return " Connection: closed.";
+    } else {
+      return " Connection: open.";
     }
   }
 

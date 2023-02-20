@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Indexing through folders seems to be working fine.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Updates in the Server and ClientHandler, header is not printed correctly.">
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +38,9 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ToolWindowRun.ShowToolbar&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dimit/OneDrive/Documents/lnu courses/1DV512/a3&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -49,7 +53,7 @@
     <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Server" />
       <module name="dd222im_assign2" />
-      <option name="PROGRAM_PARAMETERS" value="8888 public" />
+      <option name="PROGRAM_PARAMETERS" value="8080 public" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -97,6 +101,8 @@
       <updated>1676495864994</updated>
       <workItem from="1676495866332" duration="4135000" />
       <workItem from="1676734999477" duration="6778000" />
+      <workItem from="1676812634349" duration="8726000" />
+      <workItem from="1676888848330" duration="4000000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -126,7 +132,42 @@
       <option name="project" value="LOCAL" />
       <updated>1676740879488</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added a folder check statement.">
+      <created>1676817260825</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676817260825</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Requested files and folders are printed out correctly.">
+      <created>1676819809776</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1676819809776</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Some updates in printings.">
+      <created>1676820553002</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1676820553002</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Updates in the printing, working on passing the header to the server.">
+      <created>1676824514673</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1676824514673</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Updates in the Server and ClientHandler, header is not printed correctly.">
+      <created>1676892870188</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1676892870189</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,18 +188,12 @@
     <MESSAGE value="Initial commit." />
     <MESSAGE value="Added a Client Handler class for handeling multiple connections." />
     <MESSAGE value="Indexing through folders seems to be working fine." />
-    <option name="LAST_COMMIT_MESSAGE" value="Indexing through folders seems to be working fine." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/ClientHandler.java</url>
-          <line>83</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Added a folder check statement." />
+    <MESSAGE value="Requested files and folders are printed out correctly." />
+    <MESSAGE value="Some updates in printings." />
+    <MESSAGE value="Updates in the printing, working on passing the header to the server." />
+    <MESSAGE value="Updates in the Server and ClientHandler, header is not printed correctly." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updates in the Server and ClientHandler, header is not printed correctly." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
