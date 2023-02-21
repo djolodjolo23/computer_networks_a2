@@ -15,11 +15,9 @@ public class Client implements Runnable{
   private Socket clientSocket;
   private String header = "";
 
-  private BufferedReader bufferedReader;
 
-  public Client(Socket socket, BufferedReader bufferedReader) {
+  public Client(Socket socket) {
     this.clientSocket = socket;
-    this.bufferedReader = bufferedReader;
   }
 
   public String getHeader() {
@@ -37,17 +35,7 @@ public class Client implements Runnable{
   public void run() {
     try {
       OutputStream output = clientSocket.getOutputStream();
-      String line;
-      StringBuilder reqBuilder = new StringBuilder();
-      while ((line = bufferedReader.readLine()) != null) {
-        reqBuilder.append(line).append("\r\n");
-        if (line.isEmpty()) {
-          break;
-        }
-      }
-      String request = reqBuilder.toString();
-      String[] lineArray = request.split(" ");
-      String path = lineArray[1];
+      String path = Server.getResource();
       LocalDateTime currentDateTime = LocalDateTime.now();
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
       String formattedDateTime = currentDateTime.format(formatter);

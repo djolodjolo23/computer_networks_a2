@@ -11,6 +11,7 @@ import java.util.Objects;
 
 public class Server {
 
+  static String resource = "";
 
 
   public static void main(String[] args) {
@@ -31,24 +32,23 @@ public class Server {
           // Create a new thread to handle the client connection
           InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
           BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-          Client client = new Client(clientSocket, bufferedReader);
-          Thread clientThread = new Thread(client);
-          clientThread.start();
-          clientThread.join();
-
-
+          Client client = new Client(clientSocket);
 
           String line;
           if ((line = bufferedReader.readLine()) != null) {
             String hostPort = bufferedReader.readLine();
             if (!(hostPort == null)) {
               String[] methodResourceVersion = line.split(" ");
+              setResource(methodResourceVersion[1]);
               if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")) {
                 if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
                     || methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 2) == '/') {
                   folders.add(methodResourceVersion[1]);
                 }
               }
+              Thread clientThread = new Thread(client);
+              clientThread.start();
+              clientThread.join();
               System.out.println("Assigned a new client to a separate thread!");
               System.out.println(
                   hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1]
@@ -104,6 +104,14 @@ public class Server {
     } catch (NumberFormatException var2) {
       return false;
     }
+  }
+
+  static String getResource() {
+    return resource;
+  }
+
+  static void setResource(String resource) {
+    Server.resource = resource;
   }
 
   static void argsCheck(String[] args) {
