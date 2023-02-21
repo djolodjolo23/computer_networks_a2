@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Buffered reader != null added so the test can run, setting header added in the ClientHandler class.">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Code refactoring, works fine now. The output is still being printed after the second page reload.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/ClientHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,7 +105,7 @@
       <workItem from="1676734999477" duration="6778000" />
       <workItem from="1676812634349" duration="8726000" />
       <workItem from="1676888848330" duration="4000000" />
-      <workItem from="1676902283045" duration="14515000" />
+      <workItem from="1676902283045" duration="24112000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -184,7 +184,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676964702652</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Code refactoring, works fine now. The output is still being printed after the second page reload.">
+      <created>1676965307030</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1676965307030</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -212,18 +219,8 @@
     <MESSAGE value="Updates in the Server and ClientHandler, header is not printed correctly." />
     <MESSAGE value="ClientHandler seems to be working fine now, still needs some fine tuning." />
     <MESSAGE value="Buffered reader != null added so the test can run, setting header added in the ClientHandler class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Buffered reader != null added so the test can run, setting header added in the ClientHandler class." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Server.java</url>
-          <line>56</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
+    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

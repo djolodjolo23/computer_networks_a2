@@ -15,14 +15,16 @@ public class Client implements Runnable{
   private Socket clientSocket;
   private String header = "";
 
-  public Client(Socket socket) {
+  private BufferedReader bufferedReader;
+
+  public Client(Socket socket, BufferedReader bufferedReader) {
     this.clientSocket = socket;
+    this.bufferedReader = bufferedReader;
   }
 
   public String getHeader() {
     return header;
   }
-
 
   public void setHeader(String response, int contentLength, String contentType, String date) {
     String headerAsString = response +
@@ -34,11 +36,7 @@ public class Client implements Runnable{
   }
   public void run() {
     try {
-      // Get the output stream of the client socket
       OutputStream output = clientSocket.getOutputStream();
-      InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
-      BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-      // Read the HTTP request from the client
       String line;
       StringBuilder reqBuilder = new StringBuilder();
       while ((line = bufferedReader.readLine()) != null) {
@@ -49,12 +47,11 @@ public class Client implements Runnable{
       }
       String request = reqBuilder.toString();
       String[] lineArray = request.split(" ");
-      String method = lineArray[0];
       String path = lineArray[1];
-      String protocol = lineArray[2];
       LocalDateTime currentDateTime = LocalDateTime.now();
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
       String formattedDateTime = currentDateTime.format(formatter);
+      byte[] tempData = new byte[]{};
       if (path.equals("/") || path.equals("/index.html")) {
         String contentType = "text/html";
         byte[] data = Files.readAllBytes(Path.of("public/index.html"));
@@ -67,38 +64,70 @@ public class Client implements Runnable{
           output.write(data);
         } catch (IOException e) {
           setHeader("HTTP/1.1 404 Not Found\r\n", data.length, contentType, formattedDateTime);
-          output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
-              "\r\n").getBytes());
+          output.write(("""
+              HTTP/1.1 404 Not Found\r
+              Content-Length: 0\r
+              \r
+              """).getBytes());
         }
-      } else {
-        byte[] tempData = new byte[]{};
+      } else if (path.equals("/redirect")) {
         try {
-            String contentType = "text/plain";
-            if (path.endsWith(".html")) {
-              contentType = "text/html";
-            } else if (path.endsWith(".png")) {
-              contentType = "image/png";
+          setHeader("HTTP/1.1 302 Found\r\n", tempData.length, "null", formattedDateTime);
+          output.write(("""
+              HTTP/1.1 302 Found\r
+              Location: /a\r
+              \r
+              """).getBytes());
+        } catch (IOException e) {
+          setHeader("HTTP/1.1 500 Internal Server Error\r\n", tempData.length, "null", formattedDateTime);
+          output.write(("""
+              HTTP/1.1 500 Internal Server Error\r
+              Content-Length: 0\r
+              \r
+              """).getBytes());
+        }
+      }
+      else {
+        Path filePath = Path.of("public" + path);
+        File file = filePath.toFile();
+        try {
+            if (!file.exists()) {
+              setHeader("HTTP/1.1 404 Not Found\r\n", tempData.length, "null", formattedDateTime);
+              output.write(("""
+                  HTTP/1.1 404 Not Found\r
+                  Content-Length: 0\r
+                  \r
+                  """).getBytes());
+            } else {
+              String contentType = "text/plain";
+              if (path.endsWith(".html")) {
+                contentType = "text/html";
+              } else if (path.endsWith(".png")) {
+                contentType = "image/png";
+              }
+              if (file.isDirectory()) {
+                contentType = "text/html";
+                filePath = filePath.resolve("index.html");
+              }
+              byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
+              tempData = data;
+              setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
+              output.write(("HTTP/1.1 200 OK\r\n" +
+                  "Content-Length: " + data.length + "\r\n" +
+                  "Content-Type: " + contentType + "\r\n" +
+                  "\r\n").getBytes());
+              output.write(data);
             }
-            Path filePath = Path.of("public" + path);
-            File file = filePath.toFile();
-            if (file.isDirectory()) {
-              contentType = "text/html";
-              filePath = filePath.resolve("index.html");
-            }
-            byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
-            tempData = data;
-            setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
-            output.write(("HTTP/1.1 200 OK\r\n" +
-                "Content-Length: " + data.length + "\r\n" +
-                "Content-Type: " + contentType + "\r\n" +
-                "\r\n").getBytes());
-            output.write(data);
           } catch (IOException e) {
-            setHeader("HTTP/1.1 404 Not Found\r\n", tempData.length, "null", formattedDateTime);
-            output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
-                "\r\n").getBytes());
+            setHeader("HTTP/1.1 500 Internal Server Error\r\n", tempData.length, "null", formattedDateTime);
+          output.write(("""
+              HTTP/1.1 500 Internal Server Error\r
+              Content-Length: 0\r
+              \r
+              """).getBytes());
           }
         }
+      //clientSocket.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
