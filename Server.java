@@ -1,15 +1,12 @@
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class Server {
@@ -32,7 +29,7 @@ public class Server {
     }
     try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]))) {
       // ready to receive messages
-      System.out.println("Server has succesfully started. Listening on the port " + args[0]);
+      System.out.println("Server has successfully started. Listening on the port " + args[0]);
       URL url = Server.class.getResource("/public");
       assert url != null;
       String path = url.getPath();
@@ -42,39 +39,24 @@ public class Server {
       while (true) {
         // client that's accepted
         // can accept multiple connections since in while(true) loop
-        try (Socket client = serverSocket.accept()) {
+        try (Socket clientSocket = serverSocket.accept()) {
 
-          //Socket clientSocket = serverSocket.accept();
           ArrayList<String> folders = new ArrayList<>();
-
-          //System.out.println("Client connected from " + clientSocket.getInetAddress());
-
           // Create a new thread to handle the client connection
-          ClientHandler clientHandler = new ClientHandler(client);
-          Thread clientThread = new Thread(clientHandler);
+          Client client = new Client(clientSocket);
+          Thread clientThread = new Thread(client);
           clientThread.start();
           clientThread.join();
 
-
           // read the requests and listen to the message
-          InputStreamReader inputStreamReader = new InputStreamReader(client.getInputStream());
-
-
+          InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
           BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
-          // read the first request from the client
-          //StringBuilder requestBuilder = new StringBuilder();
-
-          //System.out.println("Client connected from " + localAddress + ":" + remotePort + " (localhost = " + isItSame + ")");
-
-
-          //requestBuilder.append("Host: ").append(localAddress).append(" (localhost = ").append(isItSame).append(")");
-          while (bufferedReader.readLine() != null) {
-            //bufferedReader.reset();
-            String firstLine = bufferedReader.readLine();
+          String line;
+          if ((line = bufferedReader.readLine()) != null) {
             String hostPort = bufferedReader.readLine();
-            if (!(firstLine == null) && !(hostPort == null)) {
-              String[] methodResourceVersion = firstLine.split(" ");
+            if (!(hostPort == null)) {
+              String[] methodResourceVersion = line.split(" ");
               if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")) {
                 if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
                     || methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 2) == '/') {
@@ -100,9 +82,9 @@ public class Server {
               } else {
                 System.out.println("Requested file does not exist!");
               }
-              InetAddress clientInetAddress = client.getInetAddress();
-              int port = client.getPort();
-              String header = clientHandler.getHeader();
+              InetAddress clientInetAddress = clientSocket.getInetAddress();
+              int port = clientSocket.getPort();
+              String header = client.getHeader();
               if (!Objects.equals(header, "")) {
                 String[] headerArray = header.split("\r\n");
                 String response = headerArray[0].substring(8);
@@ -111,17 +93,14 @@ public class Server {
                 String contentType = headerArray[2];
                 InetAddress addr = InetAddress.getLocalHost();
                 String hostname = addr.getHostName();
-                client.close();
+                clientSocket.close();
                 System.out.println(
                     "Client: " + clientInetAddress + port + ", Version: " + methodResourceVersion[2]
                         + ", Response:" + response + ", " + dateTime + " \nServername:" + hostname + ", "
-                        + contentLength + ", " + checkIfSocketIsClosed(client)
+                        + contentLength + ", " + checkIfSocketIsClosed(clientSocket)
                         + ", " + contentType);
                 System.out.println("\n");
-              }
-                //client.close();
-                //bufferedReader.close();
-                //inputStreamReader.close();
+                }
               }
             }
         } catch (IOException | InterruptedException e) {
