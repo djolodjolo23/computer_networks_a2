@@ -69,7 +69,7 @@ public class Server {
 
 
           //requestBuilder.append("Host: ").append(localAddress).append(" (localhost = ").append(isItSame).append(")");
-          //while (bufferedReader.readLine() != null) {
+          while (bufferedReader.readLine() != null) {
             //bufferedReader.reset();
             String firstLine = bufferedReader.readLine();
             String hostPort = bufferedReader.readLine();
@@ -118,6 +118,7 @@ public class Server {
                         + contentLength + ", " + checkIfSocketIsClosed(client)
                         + ", " + contentType);
                 System.out.println("\n");
+              }
                 //client.close();
                 //bufferedReader.close();
                 //inputStreamReader.close();
