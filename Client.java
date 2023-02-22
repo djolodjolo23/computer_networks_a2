@@ -45,6 +45,20 @@ public class Client implements Runnable{
       InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String line;
+      /**
+       try {
+         Object obj = null;
+         obj.toString();
+       } catch (Exception e) {
+         e.printStackTrace();
+         setHeader("HTTP/1.1 500 Internal Server Error\r\n", 0, "null", "null");
+         output.write(("""
+                  HTTP/1.1 500 Internal Server Error\r
+                  Content-Length: 0\r
+                  \r
+                  """).getBytes());
+       }
+       */
       if ((line = bufferedReader.readLine()) != null) {
         String hostPort = bufferedReader.readLine();
         if (!(hostPort == null)) {
@@ -162,6 +176,8 @@ public class Client implements Runnable{
           InetAddress clientInetAddress = clientSocket.getInetAddress();
           int port = clientSocket.getPort();
           String header = getHeader();
+          //triggerInternalServerError(methodResourceVersion, output);
+          //header = getHeader();
           if (!Objects.equals(header, "")) {
             String[] headerArray = header.split("\r\n");
             String response = headerArray[0].substring(8);
@@ -182,6 +198,19 @@ public class Client implements Runnable{
       }
     } catch (IOException e) {
       e.printStackTrace();
+    }
+  }
+
+  private void triggerInternalServerError(String[] data, OutputStream output) throws IOException {
+    try {
+      String line = data[5];
+    } catch (Exception e) {
+      setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, "null", "date");
+      output.write(("""
+                  HTTP/1.1 500 Internal Server Error\r
+                  Content-Length: 0\r
+                  \r
+                  """).getBytes());
     }
   }
 

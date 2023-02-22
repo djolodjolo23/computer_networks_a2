@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client.">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,7 +107,7 @@
       <workItem from="1676734999477" duration="6778000" />
       <workItem from="1676812634349" duration="8726000" />
       <workItem from="1676888848330" duration="4000000" />
-      <workItem from="1676902283045" duration="37081000" />
+      <workItem from="1676902283045" duration="38959000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -209,7 +207,14 @@
       <option name="project" value="LOCAL" />
       <updated>1677007192490</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete.">
+      <created>1677063306082</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677063306082</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,23 +245,8 @@
     <MESSAGE value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
     <MESSAGE value="Updates in the code, still working on synchonizing client thread and a server." />
     <MESSAGE value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
-    <option name="LAST_COMMIT_MESSAGE" value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Client.java</url>
-          <line>217</line>
-          <option name="timeStamp" value="147" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Client.java</url>
-          <line>52</line>
-          <option name="timeStamp" value="148" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete." />
+    <option name="LAST_COMMIT_MESSAGE" value="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
