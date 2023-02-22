@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Double buffered">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
@@ -23,6 +23,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -104,7 +109,7 @@
       <workItem from="1676734999477" duration="6778000" />
       <workItem from="1676812634349" duration="8726000" />
       <workItem from="1676888848330" duration="4000000" />
-      <workItem from="1676902283045" duration="29873000" />
+      <workItem from="1676902283045" duration="37081000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -197,7 +202,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676997065630</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client.">
+      <created>1677007192490</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1677007192490</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,15 +239,21 @@
     <MESSAGE value="Buffered reader != null added so the test can run, setting header added in the ClientHandler class." />
     <MESSAGE value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
     <MESSAGE value="Updates in the code, still working on synchonizing client thread and a server." />
-    <option name="LAST_COMMIT_MESSAGE" value="Updates in the code, still working on synchonizing client thread and a server." />
+    <MESSAGE value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
+    <option name="LAST_COMMIT_MESSAGE" value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Server.java</url>
-          <line>72</line>
-          <option name="timeStamp" value="126" />
+          <url>file://$PROJECT_DIR$/Client.java</url>
+          <line>217</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Client.java</url>
+          <line>52</line>
+          <option name="timeStamp" value="148" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
