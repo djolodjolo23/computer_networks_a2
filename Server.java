@@ -6,6 +6,12 @@ import java.util.Objects;
 
 public class Server {
 
+
+  /**
+   * The main method containing a while(true) loop for accepting clients.
+   *
+   * @param args are port as an integer value, and a public folder name.
+   */
   public static void main(String[] args) {
     argsCheck(args);
     try (ServerSocket serverSocket = new ServerSocket(Integer.parseInt(args[0]))) {
@@ -32,6 +38,12 @@ public class Server {
     }
   }
 
+  /**
+   * Checks if value is integer or not.
+   *
+   * @param var0 is the input string.
+   * @return is boolean true or false, depending on the value.
+   */
   static boolean integerCheck(String var0) {
     try {
       Integer.parseInt(var0);
@@ -41,6 +53,11 @@ public class Server {
     }
   }
 
+  /**
+   * Checks the program arguments.
+   *
+   * @param args are the program arguments, port number and a name of the folder.
+   */
   static void argsCheck(String[] args) {
     if (args.length != 2) {
       System.err.println("There must be two program arguments, the listening port and a relative folder path");

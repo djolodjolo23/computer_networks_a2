@@ -28,6 +28,14 @@ public class Client implements Runnable{
     return header;
   }
 
+  /**
+   * Sets the header with the needed data for printing.
+   *
+   * @param response is the response code and the message.
+   * @param contentLength is the length of the byte array.
+   * @param contentType is the type of the requested content.
+   * @param date is the current time and date.
+   */
   public void setHeader(String response, int contentLength, String contentType, String date) {
     String headerAsString = response +
         "Content-Length: " + contentLength + "\r\n" +
@@ -37,6 +45,10 @@ public class Client implements Runnable{
     this.header = new String(headerAsString.getBytes(), StandardCharsets.UTF_8);
   }
 
+  /**
+   * A run method started inside the main method when the client is accepted.
+   */
+  @Override
   public void run() {
     try {
       OutputStream output = clientSocket.getOutputStream();
@@ -44,21 +56,6 @@ public class Client implements Runnable{
       InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String line;
-      // code below added for triggering the 500 internal error.
-      /**
-       try {
-         Object obj = null;
-         obj.toString();
-       } catch (Exception e) {
-         e.printStackTrace();
-         setHeader("HTTP/1.1 500 Internal Server Error\r\n", 0, "null", "null");
-         output.write(("""
-                  HTTP/1.1 500 Internal Server Error\r
-                  Content-Length: 0\r
-                  \r
-                  """).getBytes());
-       }
-       */
       if ((line = bufferedReader.readLine()) != null) {
         String hostPort = bufferedReader.readLine();
         if (!(hostPort == null)) {
@@ -93,8 +90,8 @@ public class Client implements Runnable{
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
           String formattedDateTime = currentDateTime.format(formatter);
           byte[] tempData = new byte[]{};
+          String contentType = "text/html";
           if (path.equals("/") || path.equals("/index.html")) {
-            String contentType = "text/html";
             byte[] data = Files.readAllBytes(Path.of("public/index.html"));
             try {
               setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
@@ -113,7 +110,8 @@ public class Client implements Runnable{
             }
           } else if (path.equals("/redirect")) {
             try {
-              setHeader("HTTP/1.1 302 Found\r\n", tempData.length, "null", formattedDateTime);
+              byte[] data = Files.readAllBytes(Path.of("public/index.html"));
+              setHeader("HTTP/1.1 302 Found\r\n", data.length, contentType, formattedDateTime);
               output.write(("""
                   HTTP/1.1 302 Found\r
                   Location: /index.html\r
@@ -130,12 +128,16 @@ public class Client implements Runnable{
           } else {
             try {
               if (validatePath(path)) {
-                output.write(("HTTP/1.1 404 Not Found\r\n" + "Content-Length: 0\r\n" +
-                    "\r\n").getBytes());
+                output.write(("""
+                    HTTP/1.1 404 Not Found\r
+                    Content-Length: 0\r
+                    \r
+                    """).getBytes());
               } else {
                 Path filePath = Path.of("public" + path);
                 File file = filePath.toFile();
                 if (!file.exists()) {
+                  //byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
                   setHeader("HTTP/1.1 404 Not Found\r\n", tempData.length, "null", formattedDateTime);
                   output.write(("""
                       HTTP/1.1 404 Not Found\r
@@ -143,7 +145,6 @@ public class Client implements Runnable{
                       \r
                       """).getBytes());
                 } else {
-                  String contentType = "text/plain";
                   if (path.endsWith(".html")) {
                     contentType = "text/html";
                   } else if (path.endsWith(".png")) {
@@ -180,7 +181,7 @@ public class Client implements Runnable{
             String response = headerArray[0].substring(8);
             String dateTime = headerArray[3];
             String contentLength = headerArray[1];
-            String contentType = headerArray[2];
+            contentType = headerArray[2];
             InetAddress addr = InetAddress.getLocalHost();
             String hostname = addr.getHostName();
             clientSocket.close();
