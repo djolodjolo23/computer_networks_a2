@@ -41,10 +41,10 @@ public class Client implements Runnable{
     try {
       OutputStream output = clientSocket.getOutputStream();
       ArrayList<String> folders = new ArrayList<>();
-      // Create a new thread to handle the client connection
       InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String line;
+      // code below added for triggering the 500 internal error.
       /**
        try {
          Object obj = null;
@@ -63,7 +63,6 @@ public class Client implements Runnable{
         String hostPort = bufferedReader.readLine();
         if (!(hostPort == null)) {
           String[] methodResourceVersion = line.split(" ");
-          //setResource(methodResourceVersion[1]);
           if (!methodResourceVersion[1].endsWith(".html") && !methodResourceVersion[1].endsWith(".png")
               && !methodResourceVersion[1].endsWith(".html/") && !methodResourceVersion[1].endsWith(".png/")) {
             if (methodResourceVersion[1].charAt(methodResourceVersion[1].length() - 1) == '/'
@@ -176,8 +175,6 @@ public class Client implements Runnable{
           InetAddress clientInetAddress = clientSocket.getInetAddress();
           int port = clientSocket.getPort();
           String header = getHeader();
-          //triggerInternalServerError(methodResourceVersion, output);
-          //header = getHeader();
           if (!Objects.equals(header, "")) {
             String[] headerArray = header.split("\r\n");
             String response = headerArray[0].substring(8);
@@ -201,18 +198,6 @@ public class Client implements Runnable{
     }
   }
 
-  private void triggerInternalServerError(String[] data, OutputStream output) throws IOException {
-    try {
-      String line = data[5];
-    } catch (Exception e) {
-      setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, "null", "date");
-      output.write(("""
-                  HTTP/1.1 500 Internal Server Error\r
-                  Content-Length: 0\r
-                  \r
-                  """).getBytes());
-    }
-  }
 
   /**
    * A method to ensure that the requested path is in 'public' directory.

@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Code refactoring, works fine now. The output is still being printed after the second page reload.">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Added a piece of code for triggering the 500 internal error.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +22,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -41,7 +45,7 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;ToolWindowRun.ShowToolbar&quot;: &quot;false&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/dimit/OneDrive/Documents/lnu courses/1DV512/a3&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/dimit/OneDrive/Documents/lnu courses/1DV512/a2_task2_1DV512&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -104,7 +108,8 @@
       <workItem from="1676734999477" duration="6778000" />
       <workItem from="1676812634349" duration="8726000" />
       <workItem from="1676888848330" duration="4000000" />
-      <workItem from="1676902283045" duration="16607000" />
+      <workItem from="1676902283045" duration="39638000" />
+      <workItem from="1677073657674" duration="2491000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -190,7 +195,35 @@
       <option name="project" value="LOCAL" />
       <updated>1676965307030</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Updates in the code, still working on synchonizing client thread and a server.">
+      <created>1676997065630</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1676997065630</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client.">
+      <created>1677007192490</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1677007192490</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete.">
+      <created>1677063306082</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1677063306082</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Added a piece of code for triggering the 500 internal error.">
+      <created>1677065161230</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1677065161230</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -219,7 +252,11 @@
     <MESSAGE value="ClientHandler seems to be working fine now, still needs some fine tuning." />
     <MESSAGE value="Buffered reader != null added so the test can run, setting header added in the ClientHandler class." />
     <MESSAGE value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
-    <option name="LAST_COMMIT_MESSAGE" value="Code refactoring, works fine now. The output is still being printed after the second page reload." />
+    <MESSAGE value="Updates in the code, still working on synchonizing client thread and a server." />
+    <MESSAGE value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
+    <MESSAGE value="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete." />
+    <MESSAGE value="Added a piece of code for triggering the 500 internal error." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a piece of code for triggering the 500 internal error." />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
