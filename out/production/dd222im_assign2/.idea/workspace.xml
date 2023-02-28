@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="Added a piece of code for triggering the 500 internal error.">
+    <list default="true" id="ea4b044e-ac3b-49b8-89a6-cf3511eb88b3" name="Changes" comment="A main method compiled into a class.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dd222im_report.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/dd222im_report.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/dd222im_assign2/Server.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +114,8 @@
       <workItem from="1676888848330" duration="4000000" />
       <workItem from="1676902283045" duration="39638000" />
       <workItem from="1677073657674" duration="3901000" />
+      <workItem from="1677507453614" duration="5376000" />
+      <workItem from="1677570372461" duration="1364000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit.">
       <created>1676497165591</created>
@@ -222,7 +229,28 @@
       <option name="project" value="LOCAL" />
       <updated>1677065161230</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="A main method compiled into a class.">
+      <created>1677154478275</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1677154478275</updated>
+    </task>
+    <task id="LOCAL-00018" summary="A main method compiled into a class.">
+      <created>1677154650207</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1677154650207</updated>
+    </task>
+    <task id="LOCAL-00019" summary="A main method compiled into a class.">
+      <created>1677154664434</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1677154664434</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +283,19 @@
     <MESSAGE value="Buffered reader removed from the client. Added a setter and getter for the resource, the resource is now shared from the server to the client." />
     <MESSAGE value="Code logic moved to the Client. The server now creates the Clint thread and waits for the Thread to complete." />
     <MESSAGE value="Added a piece of code for triggering the 500 internal error." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a piece of code for triggering the 500 internal error." />
+    <MESSAGE value="A main method compiled into a class." />
+    <option name="LAST_COMMIT_MESSAGE" value="A main method compiled into a class." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Server.java</url>
+          <line>29</line>
+          <option name="timeStamp" value="147" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/testa2u1_py$testa2u1.coverage" NAME="testa2u1 Coverage Results" MODIFIED="1676736426476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

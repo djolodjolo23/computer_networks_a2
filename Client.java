@@ -19,9 +19,12 @@ public class Client implements Runnable{
   private Socket clientSocket;
   private String header = "";
 
+  private String[] args;
 
-  public Client(Socket socket) {
+
+  public Client(Socket socket, String[] args) {
     this.clientSocket = socket;
+    this.args = args;
   }
 
   public String getHeader() {
@@ -71,7 +74,7 @@ public class Client implements Runnable{
             System.out.println(
                 hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1]
                     + ", Version: " + methodResourceVersion[2]);
-            if (checkIfFileExists(methodResourceVersion[1])|| folders.contains(methodResourceVersion[1])) {
+            if (checkIfFileExists(methodResourceVersion[1], args[1])|| folders.contains(methodResourceVersion[1])) {
               System.out.println("Requested file exists!");
               if (folders.contains(methodResourceVersion[1])) {
                 System.out.println("Requested item is a folder.");
@@ -127,7 +130,7 @@ public class Client implements Runnable{
             }
           } else {
             try {
-              if (validatePath(path)) {
+              if (validatePath(path, args[1])) {
                 output.write(("""
                     HTTP/1.1 404 Not Found\r
                     Content-Length: 0\r
@@ -203,8 +206,8 @@ public class Client implements Runnable{
   /**
    * A method to ensure that the requested path is in 'public' directory.
    */
-  private boolean validatePath(String path) {
-    Path publicPath = Paths.get("public").normalize();
+  private boolean validatePath(String path, String folderName) {
+    Path publicPath = Paths.get(folderName).normalize();
     Path requestedPath = publicPath.resolve(path).normalize();
     return requestedPath.startsWith(publicPath);
   }
@@ -229,14 +232,14 @@ public class Client implements Runnable{
    * @param fileName is the name of the file, or the resource.
    * @return is true or false, depending on the outcome.
    */
-  private boolean checkIfFileExists(String fileName) {
+  private boolean checkIfFileExists(String fileName, String folderName) {
     if (fileName.charAt(fileName.length() -1) == '/') {
       if (fileName.length() != 1) {
         fileName = fileName.substring(0, fileName.length() - 1);
       }
     }
     String folderPath = fileName.substring(0, fileName.lastIndexOf('/'));
-    File folder = new File("public" + folderPath);
+    File folder = new File(folderName + folderPath);
     File[] files = folder.listFiles();
     boolean doesTheFileExist = false;
     if (files != null) {
@@ -250,7 +253,6 @@ public class Client implements Runnable{
     }
     return doesTheFileExist;
   }
-
 }
 
 
