@@ -92,10 +92,10 @@ public class Client implements Runnable{
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
           String formattedDateTime = currentDateTime.format(formatter);
-          byte[] tempData = new byte[]{};
+          byte[] data;
           String contentType = "text/html";
           if (path.equals("/") || path.equals("/index.html")) {
-            byte[] data = Files.readAllBytes(Path.of("public/index.html"));
+            data = Files.readAllBytes(Path.of("public/index.html"));
             try {
               setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
               output.write(("HTTP/1.1 200 OK\r\n" +
@@ -104,16 +104,17 @@ public class Client implements Runnable{
                   "\r\n").getBytes());
               output.write(data);
             } catch (IOException e) {
+              data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
               setHeader("HTTP/1.1 404 Not Found\r\n", data.length, contentType, formattedDateTime);
-              output.write(("""
-                  HTTP/1.1 404 Not Found\r
-                  Content-Length: 0\r
-                  \r
-                  """).getBytes());
+              output.write(("HTTP/1.1 200 OK\r\n" +
+                      "Content-Length: " + data.length + "\r\n" +
+                      "Content-Type: " + contentType + "\r\n" +
+                      "\r\n").getBytes());
+              output.write(data);
             }
           } else if (path.equals("/redirect")) {
             try {
-              byte[] data = Files.readAllBytes(Path.of("public/index.html"));
+              data = Files.readAllBytes(Path.of("public/index.html"));
               setHeader("HTTP/1.1 302 Found\r\n", data.length, contentType, formattedDateTime);
               output.write(("""
                   HTTP/1.1 302 Found\r
@@ -121,32 +122,35 @@ public class Client implements Runnable{
                   \r
                   """).getBytes());
             } catch (IOException e) {
-              setHeader("HTTP/1.1 500 Internal Server Error\r\n", tempData.length, "null", formattedDateTime);
-              output.write(("""
-                  HTTP/1.1 500 Internal Server Error\r
-                  Content-Length: 0\r
-                  \r
-                  """).getBytes());
+              data = Files.readAllBytes(Path.of("public/500.html"));
+              setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, contentType, formattedDateTime);
+              output.write(("HTTP/1.1 200 OK\r\n" +
+                      "Content-Length: " + data.length + "\r\n" +
+                      "Content-Type: " + contentType + "\r\n" +
+                      "\r\n").getBytes());
+              output.write(data);
             }
           } else {
             try {
               if (validatePath(path, args[1])) {
-                output.write(("""
-                    HTTP/1.1 404 Not Found\r
-                    Content-Length: 0\r
-                    \r
-                    """).getBytes());
+                data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
+                output.write(("HTTP/1.1 200 OK\r\n" +
+                        "Content-Length: " + data.length + "\r\n" +
+                        "Content-Type: " + contentType + "\r\n" +
+                        "\r\n").getBytes());
+                output.write(data);
               } else {
                 Path filePath = Path.of("public" + path);
                 File file = filePath.toFile();
                 if (!file.exists()) {
-                  //byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
-                  setHeader("HTTP/1.1 404 Not Found\r\n", tempData.length, "null", formattedDateTime);
-                  output.write(("""
-                      HTTP/1.1 404 Not Found\r
-                      Content-Length: 0\r
-                      \r
-                      """).getBytes());
+                  data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
+                  setHeader("HTTP/1.1 404 Not Found\r\n", data.length, contentType, formattedDateTime);
+                  output.write(("HTTP/1.1 200 OK\r\n" +
+                          "Content-Length: " + data.length + "\r\n" +
+                          "Content-Type: " + contentType + "\r\n" +
+                          "\r\n").getBytes());
+                  output.write(data);
+
                 } else {
                   if (path.endsWith(".html")) {
                     contentType = "text/html";
@@ -157,8 +161,7 @@ public class Client implements Runnable{
                     contentType = "text/html";
                     filePath = filePath.resolve("index.html");
                   }
-                  byte[] data = Files.readAllBytes(Path.of(filePath.toUri()));
-                  tempData = data;
+                  data = Files.readAllBytes(Path.of(filePath.toUri()));
                   setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
                   output.write(("HTTP/1.1 200 OK\r\n" +
                       "Content-Length: " + data.length + "\r\n" +
@@ -168,12 +171,13 @@ public class Client implements Runnable{
                 }
               }
             } catch (IOException e) {
-              setHeader("HTTP/1.1 500 Internal Server Error\r\n", tempData.length, "null", formattedDateTime);
-              output.write(("""
-                  HTTP/1.1 500 Internal Server Error\r
-                  Content-Length: 0\r
-                  \r
-                  """).getBytes());
+              data = Files.readAllBytes(Path.of("public/500.html"));
+              setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, contentType, formattedDateTime);
+              output.write(("HTTP/1.1 200 OK\r\n" +
+                      "Content-Length: " + data.length + "\r\n" +
+                      "Content-Type: " + contentType + "\r\n" +
+                      "\r\n").getBytes());
+              output.write(data);
             }
           }
           InetAddress clientInetAddress = clientSocket.getInetAddress();
