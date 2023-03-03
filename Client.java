@@ -59,6 +59,9 @@ public class Client implements Runnable{
       InputStreamReader inputStreamReader = new InputStreamReader(clientSocket.getInputStream());
       BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
       String line;
+      var error500 = Path.of(args[1] + "/500.html");
+      var error400 = Path.of(args[1] + "/retro404.win98.html");
+      var homepage = Path.of(args[1] + "/index.html");
       if ((line = bufferedReader.readLine()) != null) {
         String hostPort = bufferedReader.readLine();
         if (!(hostPort == null)) {
@@ -95,7 +98,7 @@ public class Client implements Runnable{
           byte[] data;
           String contentType = "text/html";
           if (path.equals("/") || path.equals("/index.html")) {
-            data = Files.readAllBytes(Path.of("public/index.html"));
+            data = Files.readAllBytes(homepage);
             try {
               setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
               output.write(("HTTP/1.1 200 OK\r\n" +
@@ -104,7 +107,7 @@ public class Client implements Runnable{
                   "\r\n").getBytes());
               output.write(data);
             } catch (IOException e) {
-              data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
+              data = Files.readAllBytes(error400);
               setHeader("HTTP/1.1 404 Not Found\r\n", data.length, contentType, formattedDateTime);
               output.write(("HTTP/1.1 200 OK\r\n" +
                       "Content-Length: " + data.length + "\r\n" +
@@ -114,7 +117,8 @@ public class Client implements Runnable{
             }
           } else if (path.equals("/redirect")) {
             try {
-              data = Files.readAllBytes(Path.of("public/index.html"));
+              //data = Files.readAllBytes(Path.of(args[1] + "/abc"));
+              data = Files.readAllBytes(homepage);
               setHeader("HTTP/1.1 302 Found\r\n", data.length, contentType, formattedDateTime);
               output.write(("""
                   HTTP/1.1 302 Found\r
@@ -122,7 +126,7 @@ public class Client implements Runnable{
                   \r
                   """).getBytes());
             } catch (IOException e) {
-              data = Files.readAllBytes(Path.of("public/500.html"));
+              data = Files.readAllBytes(error500);
               setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, contentType, formattedDateTime);
               output.write(("HTTP/1.1 200 OK\r\n" +
                       "Content-Length: " + data.length + "\r\n" +
@@ -133,24 +137,13 @@ public class Client implements Runnable{
           } else {
             try {
               if (validatePath(path, args[1])) {
-                data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
-                output.write(("HTTP/1.1 200 OK\r\n" +
-                        "Content-Length: " + data.length + "\r\n" +
-                        "Content-Type: " + contentType + "\r\n" +
-                        "\r\n").getBytes());
-                output.write(data);
+                data = Files.readAllBytes(error400);
               } else {
-                Path filePath = Path.of("public" + path);
+                Path filePath = Path.of(args[1] + path);
                 File file = filePath.toFile();
                 if (!file.exists()) {
-                  data = Files.readAllBytes(Path.of("public/retro404.win98.html"));
+                  data = Files.readAllBytes(error400);
                   setHeader("HTTP/1.1 404 Not Found\r\n", data.length, contentType, formattedDateTime);
-                  output.write(("HTTP/1.1 200 OK\r\n" +
-                          "Content-Length: " + data.length + "\r\n" +
-                          "Content-Type: " + contentType + "\r\n" +
-                          "\r\n").getBytes());
-                  output.write(data);
-
                 } else {
                   if (path.endsWith(".html")) {
                     contentType = "text/html";
@@ -163,15 +156,16 @@ public class Client implements Runnable{
                   }
                   data = Files.readAllBytes(Path.of(filePath.toUri()));
                   setHeader("HTTP/1.1 200 OK\r\n", data.length, contentType, formattedDateTime);
-                  output.write(("HTTP/1.1 200 OK\r\n" +
+                }
+
+              }
+              output.write(("HTTP/1.1 200 OK\r\n" +
                       "Content-Length: " + data.length + "\r\n" +
                       "Content-Type: " + contentType + "\r\n" +
                       "\r\n").getBytes());
-                  output.write(data);
-                }
-              }
+              output.write(data);
             } catch (IOException e) {
-              data = Files.readAllBytes(Path.of("public/500.html"));
+              data = Files.readAllBytes(error500);
               setHeader("HTTP/1.1 500 Internal Server Error\r\n", data.length, contentType, formattedDateTime);
               output.write(("HTTP/1.1 200 OK\r\n" +
                       "Content-Length: " + data.length + "\r\n" +
@@ -208,7 +202,7 @@ public class Client implements Runnable{
 
 
   /**
-   * A method to ensure that the requested path is in 'public' directory.
+   * A method to ensure that the requested path is in public directory.
    */
   private boolean validatePath(String path, String folderName) {
     Path publicPath = Paths.get(folderName).normalize();
@@ -228,7 +222,6 @@ public class Client implements Runnable{
       return " Connection: open";
     }
   }
-
 
   /**
    * A method for checking if the file exists inside the public directory.

@@ -3,10 +3,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-
 
 public class Server {
 
@@ -57,18 +53,6 @@ public class Server {
     }
   }
 
-  static ArrayList<File> addToRestrictedFolders(String folderName) {
-    File currentDir = new File(".");
-    ArrayList<File> files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(currentDir.listFiles())));
-    ArrayList<File> blockedFolders = new ArrayList<>();
-    for (File file : files) {
-      if (file.isDirectory() && !file.getName().equals(folderName)) {
-        blockedFolders.add(file);
-      }
-    }
-    return blockedFolders;
-  }
-
   static boolean checkIfNameIsNotRestricted(String folderName) {
     boolean notRestricted = false;
     if (!folderName.equals(".idea") && !folderName.equals("out") && !folderName.equals("errors")) {
@@ -79,16 +63,6 @@ public class Server {
 
   static boolean checkIfPublicFolderExists(String folderName) {
     boolean exist = false;
-    /**
-    File rootDir = new File(".");
-    ArrayList<File> files = new ArrayList<>(Arrays.asList(Objects.requireNonNull(rootDir.listFiles())));
-    ArrayList<File> blockedFolders = new ArrayList<>();
-    for (File file : files) {
-      if (file.isDirectory()) {
-        blockedFolders.add(file);
-      }
-    }
-    */
     File currentDir = new File(folderName);
     if (currentDir.exists()) {
       exist = true;
