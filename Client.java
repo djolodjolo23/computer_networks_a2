@@ -73,11 +73,12 @@ public class Client implements Runnable{
               folders.add(methodResourceVersion[1]);
             }
           }
+          if (!methodResourceVersion[1].equals("/favicon.ico")) {
             System.out.println("Assigned a new client to a separate thread!");
             System.out.println(
                 hostPort + "," + " Method:" + methodResourceVersion[0] + ", Path: " + methodResourceVersion[1]
                     + ", Version: " + methodResourceVersion[2]);
-            if (checkIfFileExists(methodResourceVersion[1], args[1])|| folders.contains(methodResourceVersion[1])) {
+            if (checkIfFileExists(methodResourceVersion[1], args[1]) || folders.contains(methodResourceVersion[1])) {
               System.out.println("Requested file exists!");
               if (folders.contains(methodResourceVersion[1])) {
                 System.out.println("Requested item is a folder.");
@@ -91,6 +92,7 @@ public class Client implements Runnable{
             } else {
               System.out.println("Requested file does not exist!");
             }
+          }
           String path = methodResourceVersion[1];
           LocalDateTime currentDateTime = LocalDateTime.now();
           DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -117,7 +119,7 @@ public class Client implements Runnable{
             }
           } else if (path.equals("/redirect")) {
             try {
-              //data = Files.readAllBytes(Path.of(args[1] + "/abc"));
+              // = Files.readAllBytes(Path.of(args[1] + "/abc"));
               data = Files.readAllBytes(homepage);
               setHeader("HTTP/1.1 302 Found\r\n", data.length, contentType, formattedDateTime);
               output.write(("""
@@ -186,12 +188,14 @@ public class Client implements Runnable{
             InetAddress addr = InetAddress.getLocalHost();
             String hostname = addr.getHostName();
             clientSocket.close();
-            System.out.println(
-                "Client: " + clientInetAddress + port + ", Version: " + methodResourceVersion[2]
-                    + ", Response:" + response + ", " + dateTime + " \nServername:" + hostname + ", "
-                    + contentLength + ", " + checkIfSocketIsClosed(clientSocket)
-                    + ", " + contentType);
-            System.out.println("\n");
+            if (!path.equals("/favicon.ico")) {
+              System.out.println(
+                  "Client: " + clientInetAddress + port + ", Version: " + methodResourceVersion[2]
+                      + ", Response:" + response + ", " + dateTime + " \nServername:" + hostname + ", "
+                      + contentLength + ", " + checkIfSocketIsClosed(clientSocket)
+                      + ", " + contentType);
+              System.out.println("\n");
+            }
           }
         }
       }
